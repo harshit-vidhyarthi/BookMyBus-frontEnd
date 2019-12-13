@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import * as api from "../api";
 import { withRouter } from "react-router-dom";
-import { saveToken } from "../tokenUtils";
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -23,7 +22,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link to="/">
-        My Movie Database
+        Book My Bus
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -36,14 +35,18 @@ const useStyles = makeStyles(theme => ({
     body: {
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        backgroundImage: 'url("http://getwallpapers.com/wallpaper/full/1/7/d/872117-top-batman-minimalist-wallpaper-1920x1080-for-ipad.jpg")',
+        backgroundImage: 'url("https://images7.alphacoders.com/317/thumb-1920-317196.jpg")',
     },
   },
   paper: {
     marginTop: theme.spacing(8),
+    padding: '50px 50px 50px 50px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    backgroundColor: 'white',
+    opacity: '95%',
+    borderRadius: '5%'
   },
   avatar: {
     margin: theme.spacing(1),
@@ -77,7 +80,7 @@ function Login(props) {
   };
 
   const handleFormSubmit = async event => {
-    event.preventDefault();
+    /*event.preventDefault();
     if (username && password) {
       try {
         const payload = { username: username, password };
@@ -91,7 +94,7 @@ function Login(props) {
         console.log(error);
         setsigninError(error.toString());
       }
-    }
+    }*/
   };
 
   const classes = useStyles();

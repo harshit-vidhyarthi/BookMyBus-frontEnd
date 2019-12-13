@@ -14,9 +14,12 @@ const useStyles = makeStyles(theme => ({
         overflow: 'hidden',
         position: 'relative',
         height: '50vh',
-        backgroundImage: 'url("https://justpaste.it/img/b58c437287d1ee4bac0ee7ab454f27e1.jpg")',
+        backgroundImage: 'url("https://s3.rdbuz.com/Images/carousel/Hero_Tweak.png")',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
         clipPath: 'polygon(100% 0%, 100% 100%, 0% 100%, 0% 30%)',
-        boxShadow: 'none'
+        boxShadow: 'none',
+        marginTop: '-125px'
     },
     footermain: {
         display: 'flex',
@@ -77,10 +80,10 @@ const Footer = () => {
                             3rd party applications
                         </Typography>
                         <Typography variant="title" color="inherit" className={classes.FooterItem}>
-                            Add new movie
+                            Add new Bus
                         </Typography>
                         <Typography variant="title" color="inherit" className={classes.FooterItem}>
-                            Add new movie show
+                            Add new Route
                         </Typography>
                     </div>
                     <div className={classes.footercolumn}>
@@ -111,7 +114,7 @@ const Footer = () => {
                             Privacy Policy
                         </Typography>
                     </div>
-                    <img src={require("../logo.png")} className={classes.navlogo} height='100px' width='100px'/>
+                    <img src="https://justpaste.it/img/44af30b99d5d161222819bedd3ddf074.png" className={classes.navlogo} height='75px' width='auto'/>
                 </div>
             </AppBar>
         </div>

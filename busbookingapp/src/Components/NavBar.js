@@ -16,12 +16,12 @@ const useStyles = makeStyles(theme => ({
     navBarWrapper: {
         position: 'relative',
         overflow: 'hidden',
-        backgroundImage: 'url("https://justpaste.it/img/99f780a49ef64bf4be455ec20e636fde.jpg")',
+        backgroundImage: 'url("https://justpaste.it/img/c0d4e66c5aab763e36148d925cfafecb.jpg")',
         backgroundPositionY: 'bottom',
         backgroundPositionX: 'center',
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        height: '95vh',
+        height: '85vh',
         boxShadow: 'none',
         clipPath: 'polygon(100% 0, 100% 80%, 0% 100%, 0 0)',
         textShadow: '5px 5px 5px #111'
@@ -43,14 +43,15 @@ const useStyles = makeStyles(theme => ({
         marginTop: '4vh'
     },
     navh2: {
-        letterSpacing: '0.1em'
+        letterSpacing: '0.1em',
+        fontFamily: 'Pacifico'
     },
     navh6: {
-        fontSize: '1em',
+        fontSize: '1.1em',
         paddingRight: '10%',
         marginTop: '4vw',
         textAlign: 'justify',
-        fontWeight: '500',
+        fontWeight: '400',
         letterSpacing: '0.1em',
         lineHeight: '1.8em'
     },
@@ -103,17 +104,17 @@ const NavBar = (props) => {
         <div style={{filter: 'drop-shadow(2px 2px 10px darkred)'}}>
             <AppBar position="static" className={classes.navBarWrapper}>
                 <Toolbar className={classes.navBarToolbar}>
-                    <img src={require("../logo.png")} className={classes.navlogo} height='75px' width='75px'/>
+                    <img src="https://justpaste.it/img/44af30b99d5d161222819bedd3ddf074.png" className={classes.navlogo} height='75px' width='auto'/>
                     <div>
                         {buttons}
                     </div>
                 </Toolbar>
                 <div className={classes.navTitle}>
                     <Typography variant="h3" color="inherit" className={classes.navh2}>
-                        MARK YOUR FAVOURITE MOVIES !!
+                        Book Your Trips Now !!
                     </Typography>
                     <Typography variant="h6" color="inherit" className={classes.navh6}>
-                    My Movie Database is a community built movie and TV database. Every piece of data has been added by our amazing community dating back to 2008. TMDb's strong international focus and breadth of data is largely unmatched and something we're incredibly proud of. Put simply, we live and breathe community and that's precisely what makes us different.
+                    Book My bus is the world's largest online bus ticket booking service trusted by over 8 million people globally. redBus offers bus ticket booking through its website,iOS and Android mobile apps for all major routes in India.
                     </Typography>
                     <Link to={props.url} className={classes.link}>
                         <Button type="submit" variant="contained" color="default" className={classes.discover}>
