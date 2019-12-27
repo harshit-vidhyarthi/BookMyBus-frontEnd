@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     marginTop: theme.spacing(8),
-    padding: '50px 50px 50px 50px',
+    padding: '30px 30px 30px 30px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -88,18 +88,17 @@ function SignUp(props) {
   };
 
   const handleFormSubmit = async event => {
-    /*event.preventDefault();
 
     if (username && password && fname && lname) {
-      const payload = { fname: fname, lname, username, password };
+      const payload = { fname: fname, lname: lname, username: username, password: password };
       try {
-        await api.signup(payload);
-        history.push("/Login");
+        await api.userSignup(payload);
+        history.push("/");
       } catch (error) {
         console.log(error.response);
         setsignupError(error.toString());
       }
-    }*/
+    }
   };
 
 

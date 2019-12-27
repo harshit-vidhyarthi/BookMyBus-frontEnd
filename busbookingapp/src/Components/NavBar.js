@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { isAuthed } from "../tokenUtils";
+import * as api from "../api";
 import { removeToken } from "../tokenUtils";
 import { withRouter } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar'
@@ -74,13 +74,13 @@ const useStyles = makeStyles(theme => ({
 const NavBar = (props) => {
     const classes = useStyles();
 
-    const handleclick = () => {
-        removeToken();
+    const handleclick = async event => {
+        await api.userLogout();
         props.history.push("/");
     };
 
     let buttons;
-    if(!isAuthed()) {
+    if(!api.isAuthed()) {
         buttons = <div><Link to="/Login" className={classes.link}>
                         <Button type="submit" variant="contained" color="default" className={classes.navButton}>
                             Log In

@@ -57,6 +57,7 @@ const useStyles = makeStyles(theme => ({
     resultCards: {
         display: 'flex',
         flexDirection: 'column',
+        alignItems: 'center'
     }
 }));
 
@@ -69,15 +70,18 @@ export default function Home() {
     const [searchError, setSearchError] = React.useState('');
     const [results, setResults] = React.useState([]);
     const [cities, setCities] = React.useState([]);
+    const [sortby, setSortby] = React.useState('');
 
     React.useEffect(() => {
-        setCities(
-            async event => {
-                const { data } = await api.getCityList()
-                return data
-            }
-        )
+        fetchCities()
     }, []);
+
+    const fetchCities = async event => {
+        const data = await api.getCityList()
+        setCities(() => {
+            return (data.data)
+        })
+    };
 
     const handleDateChange = event => {
         setSelectedDate(event.target.value);
@@ -90,6 +94,14 @@ export default function Home() {
 
     const handleChangeDestination = event => {
         setDestination(event.target.value);
+    };
+
+    const handleChangeSortBy = event => {
+        setSortby(event.target.value);
+    };
+
+    const capitalize = (s) => {
+        return s.charAt(0).toUpperCase() + s.slice(1)
     };
 
     const handleSubmit = async event => {
@@ -145,12 +157,12 @@ export default function Home() {
                           value={source}
                           onChange={handleChangeSource}
                         >
-                        {/*cities.map(item => (
-                            <MenuItem value={item}>{item}</MenuItem>
-                        ))*/}
-                        <MenuItem value={"hyderabad"}>Hyderabad</MenuItem>
+                        {cities.map(item => (
+                            <MenuItem value={item}>{capitalize(item)}</MenuItem>
+                        ))}
+                        {/*<MenuItem value={"hyderabad"}>Hyderabad</MenuItem>
                         <MenuItem value={"bhopal"}>Bhopal</MenuItem>
-                        <MenuItem value={"raipur"}>Raipur</MenuItem>
+                        <MenuItem value={"raipur"}>Raipur</MenuItem>*/}
                         </Select>
                     </FormControl>
 
@@ -162,9 +174,13 @@ export default function Home() {
                           value={destination}
                           onChange={handleChangeDestination}
                         >
-                        <MenuItem value={"mumbai"}>Mumbai</MenuItem>
+                        {cities.map(item => (
+                            (item != source)?
+                            <MenuItem value={item}>{capitalize(item)}</MenuItem>:null
+                        ))}
+                        {/*<MenuItem value={"mumbai"}>Mumbai</MenuItem>
                         <MenuItem value={"lucknow"}>Lucknow</MenuItem>
-                        <MenuItem value={"patna"}>Patna</MenuItem>
+                        <MenuItem value={"patna"}>Patna</MenuItem>*/}
                         </Select>
                     </FormControl>
                     
@@ -190,16 +206,25 @@ export default function Home() {
 
             <div className={classes.searchResultsWrapper}>
                 <div className={classes.resultCards}>
-                    {results.map(item => (
-                        <Cards 
-                            start={item.startDate.substring(0,10)}
-                            end={item.endDate.substring(0,10)}
-                            price={item.distance.substring(0,3)}
-                            seats={item.availableSeats}
-                            company={item.travelCompany}
-                            rating={item.rating}
-                        />
-                    ))}
+                    {(results.length==0)?
+                    <div></div>:
+                    <div>
+                        <h1 style={{marginBottom: '25px'}}>Available Options</h1>
+                        <hr style={{width: "140px"}} className={classes.headerLine}/>
+                        <FormControl style={{minWidth: '20px', width: '200px', margin: '20px'}} className={classes.formControl}>
+                            <InputLabel id="demo-simple-select-label">Sort By</InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              value={sortby}
+                              onChange={handleChangeSortBy}
+                            >
+                            <MenuItem value={"rating"}>Rating</MenuItem>
+                            <MenuItem value={"seats"}>Available Seats</MenuItem>
+                            </Select>
+                        </FormControl>
+                        <SearchResults sortby={sortby} results={results}/>
+                    </div>}
                 </div>
             </div>
 
@@ -214,6 +239,11 @@ const useCardStyles = makeStyles(theme => ({
     cardWrapper: {
         width: '80vw',
         minHeight: '100px',
+        backgroundImage: 'url("")',
+        backgroundPositionY: '70%',
+        backgroundPositionX: 'center',
+        backgroundSize: 'cover',
+        backgroundRepeat: 'no-repeat',
         transition: '0.3s',
         borderRadius: '2%/11%',
         overflow: 'hidden',
@@ -229,7 +259,7 @@ const useCardStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: '20px 40px 40px 40px'
+        padding: '20px 40px 40px 40px',
     },
     timeDetail: {
         display:'flex',
@@ -270,7 +300,7 @@ const Cards = (props) => {
         <div className={classes.cardWrapper}>
             <div className={classes.journeyCard}>
                 <div className={classes.timeDetail}>
-                    <img src="http://static.abhibus.com/img/edge/track-36.png" width="32px" height="35px"/>
+                    <img src="http://static.abhibus.com/img/edge/track-36.png" width="35px" height="32px"/>
                     <h4>{props.start} → </h4>
                     <h4>{props.end}</h4>
                 </div>
@@ -296,4 +326,32 @@ const Cards = (props) => {
             </div>
         </div>
     );
+}
+
+
+const SearchResults = (props) => {
+    var arr=props.results                                           
+    if(props.sortby=="seats") {
+        arr.sort(function(a,b){
+            return (a.availableSeats<b.availableSeats)?-1:1
+        })
+    }
+    else {
+        arr.sort(function(a,b){
+            var x= a.rating.substr(0, a.rating.indexOf('/'));
+            var y= b.rating.substr(0, b.rating.indexOf('/'));
+            return (x<y)?-1:1
+        })
+    }
+    return (
+        arr.map(item => (
+        <Cards 
+            start={item.startDate.substring(0,10)}
+            end={item.endDate.substring(0,10)}
+            price={item.distance.substring(0,3)}
+            seats={item.availableSeats}
+            company={item.travelCompany}
+            rating={item.rating}
+        />))
+    )
 }

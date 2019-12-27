@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     marginTop: theme.spacing(8),
-    padding: '50px 50px 50px 50px',
+    padding: '50px 30px 50px 30px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -80,21 +80,18 @@ function Login(props) {
   };
 
   const handleFormSubmit = async event => {
-    /*event.preventDefault();
+    event.preventDefault();
     if (username && password) {
       try {
-        const payload = { username: username, password };
-        const { data } = await api.signin(payload);
-        saveToken(data);
-        const { from } = {
-          from: { pathname: "/" }
-        };
-        props.history.push(from.pathname);
+        const payload = { username: username, password: password };
+        const { data } = await api.userLogin(payload);
+        api.saveIsLogged(true);
+        props.history.push("/");
       } catch (error) {
         console.log(error);
-        setsigninError(error.toString());
+        setsigninError("Either username or password is incorrect...");
       }
-    }*/
+    }
   };
 
   const classes = useStyles();
