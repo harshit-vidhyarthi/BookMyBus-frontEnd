@@ -13,58 +13,33 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Copyright from '../Molecules/Copyright';
+import LockAvatar from '../Molecules/LockAvatar';
 import {
 	Link
 } from "react-router-dom";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link to="/">
-        Book My Bus
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
 const useStyles = makeStyles(theme => ({
-  '@global': {
-    body: {
-        backgroundSize: 'cover',
-        backgroundRepeat: 'no-repeat',
-        backgroundImage: 'url("https://images7.alphacoders.com/317/thumb-1920-317196.jpg")',
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(8),
-    padding: '30px 30px 30px 30px',
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    opacity: '95%',
-    borderRadius: '5%'
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: '#555',
+  formwrapper: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'space-between'
   },
   form: {
-    width: '90%', // Fix IE 11 issue.
-    marginTop: theme.spacing(3),
+      width: '90%',
+      marginTop: '10px',
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+      marginTop: '30px',
+      marginBottom: '15px'
   },
   error: {
-    color: 'red'
+      color: 'red'
   }
 }));
 
-function SignUp(props) {
+function SignupForm(props) {
   const [username, setusername] = useState("");
   const [fname, setfname] = useState("");
   const [lname, setlname] = useState("");
@@ -105,15 +80,7 @@ function SignUp(props) {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar} >
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign up
-        </Typography>
+    <div className={classes.formwrapper}>
         <p className={classes.error}>{signupError}</p>
         <form className={classes.form} onSubmit={handleFormSubmit} noValidate>
           <Grid container spacing={2}>
@@ -188,12 +155,8 @@ function SignUp(props) {
             </Grid>
           </Grid>
         </form>
-      </div>
-      <Box mt={5}>
-        <Copyright />
-      </Box>
-    </Container>
+    </div>
   );
 }
 
-export default withRouter(SignUp);
+export default withRouter(SignupForm);

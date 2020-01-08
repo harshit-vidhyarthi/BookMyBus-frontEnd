@@ -1,8 +1,8 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import SignUp from './Components/SignUp.js'
-import Login from './Components/Login.js'
+import SignUp from './Pages/SignUp.js'
+import Login from './Pages/Login.js'
 import NavBar from './Components/NavBar.js'
 import Footer from './Components/Footer.js'
 import Home from './Pages/Home.js'
